@@ -1,0 +1,22 @@
+#AuthType Basic
+#AuthName "Authorization please"
+#AuthUserFile "/var/web/beta.rosdex.ru/www/.htpasswd"
+#Require valid-user
+
+Options -Indexes
+
+Options +FollowSymLinks
+
+DirectoryIndex index.php index.html
+
+ErrorDocument 404 /templates/404.php
+
+AddDefaultCharset utf-8
+
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(&*)(.*)$ index.php?rewrite=$2 [QSA]
+  RewriteRule ^index.php\/(.*)$ index.php?rewrite=index.php/$1 [QSA]
+</IfModule>
